@@ -27,16 +27,36 @@ export default function Home() {
   return (
     <>
       {/* Hero / Featured Section */}
-      <section className="bg-yellow-400 text-black py-12 px-4 text-center">
-        <h1 className="text-3xl sm:text-4xl font-bold mb-2">
-          Welcome to Ogonitunes
-        </h1>
-        <p className="text-sm sm:text-base mb-4">
-          Download the latest songs from your favorite artists.
-        </p>
-        <button className="bg-black text-yellow-400 px-6 py-2 rounded hover:bg-gray-800 transition">
-          Explore Songs
-        </button>
+      <section className="relative overflow-hidden bg-black text-white">
+        {/* soft background accent */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at top, rgba(250,204,21,0.35), transparent 60%)",
+          }}
+        />
+
+        <div className="relative max-w-6xl mx-auto px-4 py-8">
+          <div className="flex flex-col items-center text-center gap-3">
+            {/* micro label */}
+            <span className="text-[11px] tracking-widest uppercase text-yellow-400">
+              Ogoni Tunes
+            </span>
+
+            <h1 className="text-2xl font-semibold leading-tight">
+              Vibe to the rhythm of Ogoni music!
+            </h1>
+
+            <p className="text-sm text-white/70 max-w-xs">
+              Gospel, traditional and new-school Ogoni tracks.
+            </p>
+
+            <button className="mt-2 inline-flex items-center gap-2 bg-yellow-400 text-black px-5 py-2 rounded-full text-sm font-medium active:scale-95 transition">
+              Promote your music
+            </button>
+          </div>
+        </div>
       </section>
 
       {/* Search Bar */}
