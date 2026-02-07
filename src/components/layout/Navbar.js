@@ -10,13 +10,14 @@ export default function Navbar() {
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <nav className="bg-black text-white shadow-md fixed w-full z-50">
-      <div className="max-w-6xl mx-auto px-4">
+    <nav className="bg-black text-white shadow-md px-5 fixed w-full z-50">
+      <div className="max-w-5xl">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="text-2xl font-bold">
-            <Link href="/">Ogonitunes</Link>
-          </div>
+          <Link href="/" className="flex items-center">
+            <img src="/logo.png" className="h-10" alt="Ogonitunes" />
+          </Link>
+
           {/* Desktop Menu */}
           <ul className="hidden md:flex space-x-8">
             <li>

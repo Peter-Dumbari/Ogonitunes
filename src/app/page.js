@@ -1,11 +1,29 @@
 // import Navbar from "../components/Navbar";
 // import Footer from "../components/Footer";
+"use client";
+
 import { SongCard } from "@/components/music/Card";
-import { artists, musicTypes } from "@/data/artists";
-import { songs } from "@/data/song";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Home() {
+  const [query, setQuery] = useState("");
+  const { songs } = useSelector((state) => state.songs);
+  const { categories } = useSelector((state) => state.categories);
+  const { artists } = useSelector((state) => state.artists);
+  const router = useRouter();
+
+  const filteredSongs =
+    query.trim() === ""
+      ? []
+      : songs.filter((song) =>
+          `${song.title} ${song.artist}`
+            .toLowerCase()
+            .includes(query.toLowerCase()),
+        );
+
   return (
     <>
       {/* Hero / Featured Section */}
@@ -61,8 +79,13 @@ export default function Home() {
           {/* <h3 className="text-sm font-semibold mb-3">Music Type</h3> */}
 
           <div className="flex gap-3 overflow-x-auto">
-            {musicTypes.map((type) => (
+            {categories.map((type) => (
               <button
+                onClick={() =>
+                  router.push(
+                    `/categories/${type.toLowerCase().replace(/\s+/g, "-")}`,
+                  )
+                }
                 key={type}
                 className="px-4 py-2 rounded-full border text-sm
                      hover:bg-yellow-400 hover:text-black
@@ -74,14 +97,48 @@ export default function Home() {
         </div>
 
         {/* ===== Search bar ===== */}
-        <div>
+        <section className="max-w-6xl mx-auto px-4 pt-6 relative">
           <input
             type="text"
             placeholder="Search songs..."
-            className="w-full p-3 text-black rounded shadow border border-gray-300
-                 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="w-full text-black p-3 rounded shadow border border-gray-300
+               focus:outline-none focus:ring-2 focus:ring-yellow-400"
           />
-        </div>
+
+          {/* Dropdown */}
+          {query && filteredSongs.length > 0 && (
+            <div className="absolute left-4 right-4 mt-2 bg-white border rounded-lg shadow-lg z-40">
+              {filteredSongs.slice(0, 6).map((song) => (
+                <Link
+                  key={song.id}
+                  href={`/music/${song.id}`}
+                  className="flex items-center gap-3 p-3 hover:bg-gray-100 transition">
+                  <img
+                    src={song.cover}
+                    alt={song.title}
+                    className="w-10 h-10 rounded object-cover"
+                  />
+
+                  <div>
+                    <p className="text-sm text-yellow-400 font-semibold">
+                      {song.title}
+                    </p>
+                    <p className="text-xs text-gray-500">{song.artist}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* No result */}
+          {query && filteredSongs.length === 0 && (
+            <div className="absolute left-4 right-4 mt-2 bg-white border rounded-lg shadow-lg z-40 p-3 text-sm text-gray-500">
+              Try searching for something else.
+            </div>
+          )}
+        </section>
       </section>
 
       {/* Latest Songs Grid */}

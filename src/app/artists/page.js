@@ -1,9 +1,10 @@
 "use client";
 
-import { artists } from "@/data/artists";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 export default function ArtistsPage() {
+  const { artists } = useSelector((state) => state.artists);
   return (
     <div className="max-w-6xl mx-auto px-4 py-20">
       <h1 className="text-2xl sm:text-3xl font-bold mb-8 text-center">

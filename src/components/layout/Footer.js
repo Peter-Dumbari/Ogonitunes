@@ -16,10 +16,9 @@ export default function Footer() {
         {/* ===== Top section: Logo + Navigation ===== */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Logo */}
-          <div className="flex items-center text-2xl font-bold text-yellow-400">
-            <FaMusic className="mr-2" />
-            Ogonitunes
-          </div>
+          <Link href="/" className="flex items-center">
+            <img src="/logo.png" className="h-10" alt="Ogonitunes" />
+          </Link>
 
           {/* Navigation links */}
           <ul className="flex flex-col md:flex-row gap-4 md:gap-6 text-sm text-white">

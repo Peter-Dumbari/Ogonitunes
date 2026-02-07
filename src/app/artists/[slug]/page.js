@@ -1,12 +1,13 @@
 "use client";
 
 import { SongCard } from "@/components/music/Card";
-import { artists } from "@/data/artists";
-import { songs } from "@/data/song";
 import { useParams } from "next/navigation";
+import { useSelector } from "react-redux";
 
 export default function ArtistDetailPage() {
   const { slug } = useParams();
+  const { artists } = useSelector((state) => state.artists);
+  const { songs } = useSelector((state) => state.songs);
 
   // Find the artist by slug
   const artist = artists.find(
