@@ -21,11 +21,4 @@ export const artists = [
   },
 ];
 
-export const musicTypes = [
-  "Worship",
-  "Mixtape",
-  "Jiration",
-  "Tradition",
-  "Praise",
-  "Gospel",
-];
+export const musicTypes = [];

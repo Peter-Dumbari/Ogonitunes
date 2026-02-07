@@ -3,13 +3,15 @@
 "use client";
 
 import { SongCard } from "@/components/music/Card";
-import { artists, musicTypes } from "@/data/artists";
-import { songs } from "@/data/song";
 import Link from "next/link";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Home() {
   const [query, setQuery] = useState("");
+  const { songs } = useSelector((state) => state.songs);
+  const { categories } = useSelector((state) => state.categories);
+  const { artists } = useSelector((state) => state.artists);
 
   const filteredSongs =
     query.trim() === ""
@@ -75,7 +77,7 @@ export default function Home() {
           {/* <h3 className="text-sm font-semibold mb-3">Music Type</h3> */}
 
           <div className="flex gap-3 overflow-x-auto">
-            {musicTypes.map((type) => (
+            {categories.map((type) => (
               <button
                 key={type}
                 className="px-4 py-2 rounded-full border text-sm
