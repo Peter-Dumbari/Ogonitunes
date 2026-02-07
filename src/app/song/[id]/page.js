@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { FaDownload } from "react-icons/fa";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { useSelector } from "react-redux";
 
 export default function SongDetailPage() {
   const params = useParams(); // get song id from URL
