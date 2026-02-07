@@ -1,13 +1,13 @@
 "use client";
 
 import { SongCard } from "@/components/music/Card";
-import { songs } from "@/data/song";
 import { useParams } from "next/navigation";
+import { useSelector } from "react-redux";
 
 export default function CategoryDetailPage() {
+  const { songs } = useSelector((state) => state.songs);
   const params = useParams();
   const slug = params.slug; // get the category slug from URL
-
   // Filter songs by category
   const categorySongs = songs.filter(
     (song) => song.genre?.toLowerCase() === slug,

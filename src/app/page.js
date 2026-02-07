@@ -4,6 +4,7 @@
 
 import { SongCard } from "@/components/music/Card";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -12,6 +13,7 @@ export default function Home() {
   const { songs } = useSelector((state) => state.songs);
   const { categories } = useSelector((state) => state.categories);
   const { artists } = useSelector((state) => state.artists);
+  const router = useRouter();
 
   const filteredSongs =
     query.trim() === ""
@@ -79,6 +81,11 @@ export default function Home() {
           <div className="flex gap-3 overflow-x-auto">
             {categories.map((type) => (
               <button
+                onClick={() =>
+                  router.push(
+                    `/categories/${type.toLowerCase().replace(/\s+/g, "-")}`,
+                  )
+                }
                 key={type}
                 className="px-4 py-2 rounded-full border text-sm
                      hover:bg-yellow-400 hover:text-black

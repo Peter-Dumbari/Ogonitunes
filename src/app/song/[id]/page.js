@@ -2,13 +2,13 @@
 
 import { useParams } from "next/navigation";
 import { FaDownload } from "react-icons/fa";
-import { songs } from "@/data/song";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 export default function SongDetailPage() {
   const params = useParams(); // get song id from URL
   const songId = parseInt(params.id);
+  const { songs } = useSelector((state) => state.songs);
 
   // Find the song from mock data
   const song = songs.find((s) => s.id === songId);
