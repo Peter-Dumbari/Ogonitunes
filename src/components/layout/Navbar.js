@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -42,7 +43,14 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img src="/logo.png" className="h-10" alt="Ogonitunes" />
+            <Image
+              src="/logo.png"
+              width={150}
+              height={10}
+              className="h-10"
+              alt="Ogonitunes"
+              priority={true}
+            />
           </Link>
 
           {/* Desktop Menu */}

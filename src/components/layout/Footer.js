@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import {
   FaFacebookF,
@@ -17,7 +18,14 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img src="/logo.png" className="h-10" alt="Ogonitunes" />
+            <Image
+              src="/logo.png"
+              className="h-10"
+              width={150}
+              height={10}
+              alt="Ogonitunes"
+              priority={true}
+            />
           </Link>
 
           {/* Navigation links */}

@@ -3,6 +3,7 @@
 "use client";
 
 import { FlatSongRow, SongCard } from "@/components/music/Card";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -87,9 +88,12 @@ export default function Home() {
                 href={`/artists/${artist.name.toLowerCase().replace(/\s+/g, "-")}`}
                 className="flex-shrink-0 text-center">
                 <div className="w-12 h-12 rounded-full overflow-hidden border border-gray-300">
-                  <img
+                  <Image
                     src={artist.image}
                     alt={artist.name}
+                    width={100}
+                    height={100}
+                    loading="lazy"
                     className="w-full h-full object-cover"
                   />
                 </div>
