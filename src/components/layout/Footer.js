@@ -33,7 +33,7 @@ export default function Footer() {
               <Link
                 href="/categories"
                 className="hover:text-yellow-400 transition-colors duration-200">
-                Categories
+                Genres
               </Link>
             </li>
             <li>

@@ -2,7 +2,7 @@
 // import Footer from "../components/Footer";
 "use client";
 
-import { SongCard } from "@/components/music/Card";
+import { FlatSongRow, SongCard } from "@/components/music/Card";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -97,7 +97,7 @@ export default function Home() {
 
         {/* ===== Music categories ===== */}
         <div>
-          <h3 className="text-sm font-medium text-gray-900">Categories</h3>
+          <h3 className="text-sm font-medium text-gray-900">Genres</h3>
 
           <div className="flex flex-wrap gap-2">
             {categories.map((type) => (
@@ -172,14 +172,14 @@ export default function Home() {
         <h2 className="text-xl font-bold mb-4">Latest Songs</h2>
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {songs.map((song) => (
-            <SongCard key={song.id} song={song} />
+            <FlatSongRow key={song.id} song={song} />
           ))}
         </div>
       </section>
 
       {/* Categories Section */}
       <section className="max-w-6xl mx-auto px-4 py-6">
-        <h2 className="text-xl font-bold mb-4">Categories</h2>
+        <h2 className="text-xl font-bold mb-4">Genres</h2>
         <div className="flex flex-wrap gap-4">
           <Link href="/categories/afrobeat">
             <span className="px-4 py-2 bg-gray-200 rounded-full text-sm hover:bg-yellow-400 cursor-pointer transition">

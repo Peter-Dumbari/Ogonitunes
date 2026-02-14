@@ -48,3 +48,37 @@ export const SongCard = ({ song }) => {
     </div>
   );
 };
+
+export const FlatSongRow = ({ song }) => {
+  return (
+    <div className="border-b border-gray-200 py-2">
+      <div className="flex items-center gap-3">
+        {/* small cover */}
+        <Link href={`/song/${song.id}`}>
+          <img
+            src={song.cover}
+            alt={song.title}
+            className="w-10 h-10 object-cover border rounded"
+          />
+        </Link>
+
+        {/* title & artist */}
+        <div className="flex-1 min-w-0">
+          <Link href={`/song/${song.id}`}>
+            <p className="text-sm text-gray-900 truncate">{song.title}</p>
+          </Link>
+
+          <p className="text-[11px] text-gray-500 truncate">{song.artist}</p>
+        </div>
+
+        {/* download */}
+        <a
+          href={song.file}
+          download
+          className="text-xs text-yellow-700 font-medium whitespace-nowrap">
+          Download
+        </a>
+      </div>
+    </div>
+  );
+};
