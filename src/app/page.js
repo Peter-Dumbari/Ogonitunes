@@ -139,7 +139,7 @@ export default function Home() {
               {filteredSongs.slice(0, 6).map((song) => (
                 <Link
                   key={song.id}
-                  href={`/song/${song.id}`}
+                  href={`/song/${song.slug}`}
                   className="flex items-center gap-2 px-2 py-2 border-b last:border-b-0 text-sm">
                   <img
                     src={song.cover}

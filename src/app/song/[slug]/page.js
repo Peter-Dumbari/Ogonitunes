@@ -4,23 +4,21 @@ import { useParams } from "next/navigation";
 import { FaDownload } from "react-icons/fa";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getSongById } from "@/redux/features/songs/songSlices";
+import { useEffect } from "react";
 
 export default function SongDetailPage() {
   const params = useParams(); // get song id from URL
-  const songId = parseInt(params.id);
+  const { slug } = params; // extract slug from params
   const { songs } = useSelector((state) => state.songs);
 
   // Find the song from mock data
-  const song = songs.find((s) => s.id === songId);
+  const song = songs.find((s) => s.slug === slug);
 
   if (!song) {
     return (
-      <>
-        <Navbar />
-        <div className="pt-16 text-center text-gray-500">Song not found.</div>
-        <Footer />
-      </>
+      <div className="pt-16 text-center text-gray-500">Song not found.</div>
     );
   }
 

@@ -64,7 +64,7 @@ export const FlatSongRow = ({ song }) => {
 
         {/* title & artist */}
         <div className="flex-1 min-w-0">
-          <Link href={`/song/${song.id}`}>
+          <Link href={`/song/${song.slug}`}>
             <p className="text-sm text-gray-900 truncate">{song.title}</p>
           </Link>
 
