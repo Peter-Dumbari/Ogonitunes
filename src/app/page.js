@@ -6,6 +6,7 @@ import { FlatSongRow, SongCard } from "@/components/music/Card";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FaWhatsapp } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 export default function Home() {
@@ -52,9 +53,15 @@ export default function Home() {
               Gospel, traditional and new-school Ogoni tracks.
             </p>
 
-            <button className="mt-2 inline-flex items-center gap-2 bg-yellow-400 text-black px-5 py-2 rounded-full text-sm font-medium active:scale-95 transition">
-              Promote your music
-            </button>
+            <a
+              href="https://wa.me/2347058894095?text=Hi%20I%20want%20to%20promote%20my%20music%20on%20OgoniTunes"
+              target="_blank"
+              rel="noopener noreferrer">
+              <button className="mt-2 inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-full text-sm font-semibold active:scale-95 transition">
+                <FaWhatsapp size={18} />
+                Chat to Promote
+              </button>
+            </a>
           </div>
         </div>
       </section>
