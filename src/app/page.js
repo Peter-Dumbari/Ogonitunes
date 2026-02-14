@@ -2,7 +2,7 @@
 // import Footer from "../components/Footer";
 "use client";
 
-import { SongCard } from "@/components/music/Card";
+import { FlatSongRow, SongCard } from "@/components/music/Card";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -60,92 +60,98 @@ export default function Home() {
       </section>
 
       {/* Search Bar */}
-      <section className="max-w-6xl mx-auto px-4 pt-6 space-y-6">
-        {/* ===== Artists row ===== */}
+      <section className="max-w-6xl mx-auto px-4 pt-6 space-y-7">
+        {/* ===== Popular artists ===== */}
         <div>
-          <h3 className="text-sm font-semibold mb-3 text-center">
-            Popular Artists
-          </h3>
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-sm font-medium text-gray-900">
+              Our Trending artists
+            </h3>
 
-          <div className="flex justify-center gap-4 overflow-x-auto pb-2">
+            <Link href="/artists" className="text-xs text-yellow-700">
+              More artists
+            </Link>
+          </div>
+
+          <div className="flex gap-3 overflow-x-auto pb-1">
             {artists.map((artist) => (
-              <div key={artist.id} className="flex-shrink-0 text-center">
-                <div className="w-14 h-14 rounded-full overflow-hidden border">
-                  <Link
-                    href={`/artists/${artist.name.toLowerCase().replace(/\s+/g, "-")}`}>
-                    <img
-                      src={artist.image}
-                      alt={artist.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </Link>
+              <Link
+                key={artist.id}
+                href={`/artists/${artist.name.toLowerCase().replace(/\s+/g, "-")}`}
+                className="flex-shrink-0 text-center">
+                <div className="w-12 h-12 rounded-full overflow-hidden border border-gray-300">
+                  <img
+                    src={artist.image}
+                    alt={artist.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
-                <p className="text-xs mt-1 text-black">{artist.name}</p>
-              </div>
+                <p className="text-[11px] mt-1 text-gray-800 w-12 truncate">
+                  {artist.name}
+                </p>
+              </Link>
             ))}
-          </div>
-          <div className="mt-2 text-center">
-            <Link
-              href="/artists"
-              className="text-sm text-yellow-600 hover:underline">
-              View all artists →
-            </Link>
           </div>
         </div>
 
-        {/* ===== Music types ===== */}
+        {/* ===== Music categories ===== */}
         <div>
-          {/* <h3 className="text-sm font-semibold mb-3">Music Type</h3> */}
+          <h3 className="text-sm font-medium text-gray-900">Genres</h3>
 
-          <div className="flex gap-3 overflow-x-auto">
+          <div className="flex flex-wrap gap-2">
             {categories.map((type) => (
               <button
+                key={type}
                 onClick={() =>
                   router.push(
                     `/categories/${type.toLowerCase().replace(/\s+/g, "-")}`,
                   )
                 }
-                key={type}
-                className="px-4 py-2 rounded-full border text-sm
-                     hover:bg-yellow-400 hover:text-black
-                     transition">
+                className="
+            px-3 py-1 border border-gray-300
+            text-xs text-gray-800
+            bg-white
+          ">
                 {type}
               </button>
             ))}
           </div>
         </div>
 
-        {/* ===== Search bar ===== */}
-        <section className="max-w-6xl mx-auto px-4 pt-6 relative">
+        {/* ===== Search ===== */}
+        <div className="relative">
           <input
             type="text"
-            placeholder="Search songs..."
+            placeholder="Search music..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full text-black p-3 rounded shadow border border-gray-300
-               focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="
+        w-full p-2.5 text-sm border border-gray-300
+        rounded
+        focus:outline-none
+      "
           />
 
-          {/* Dropdown */}
+          {/* Results */}
           {query && filteredSongs.length > 0 && (
-            <div className="absolute left-4 right-4 mt-2 bg-white border rounded-lg shadow-lg z-40">
+            <div className="absolute left-0 right-0 mt-1 border border-gray-300 bg-white z-40">
               {filteredSongs.slice(0, 6).map((song) => (
                 <Link
                   key={song.id}
                   href={`/song/${song.id}`}
-                  className="flex items-center gap-3 p-3 hover:bg-gray-100 transition">
+                  className="flex items-center gap-2 px-2 py-2 border-b last:border-b-0 text-sm">
                   <img
                     src={song.cover}
                     alt={song.title}
-                    className="w-10 h-10 rounded object-cover"
+                    className="w-8 h-8 object-cover border"
                   />
 
-                  <div>
-                    <p className="text-sm text-yellow-400 font-semibold">
-                      {song.title}
+                  <div className="min-w-0">
+                    <p className="truncate text-gray-900">{song.title}</p>
+                    <p className="text-[11px] text-gray-500 truncate">
+                      {song.artist}
                     </p>
-                    <p className="text-xs text-gray-500">{song.artist}</p>
                   </div>
                 </Link>
               ))}
@@ -154,11 +160,11 @@ export default function Home() {
 
           {/* No result */}
           {query && filteredSongs.length === 0 && (
-            <div className="absolute left-4 right-4 mt-2 bg-white border rounded-lg shadow-lg z-40 p-3 text-sm text-gray-500">
-              Try searching for something else.
+            <div className="absolute left-0 right-0 mt-1 border border-gray-300 bg-white z-40 px-2 py-2 text-sm text-gray-500">
+              No result found.
             </div>
           )}
-        </section>
+        </div>
       </section>
 
       {/* Latest Songs Grid */}
@@ -166,14 +172,14 @@ export default function Home() {
         <h2 className="text-xl font-bold mb-4">Latest Songs</h2>
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {songs.map((song) => (
-            <SongCard key={song.id} song={song} />
+            <FlatSongRow key={song.id} song={song} />
           ))}
         </div>
       </section>
 
       {/* Categories Section */}
       <section className="max-w-6xl mx-auto px-4 py-6">
-        <h2 className="text-xl font-bold mb-4">Categories</h2>
+        <h2 className="text-xl font-bold mb-4">Genres</h2>
         <div className="flex flex-wrap gap-4">
           <Link href="/categories/afrobeat">
             <span className="px-4 py-2 bg-gray-200 rounded-full text-sm hover:bg-yellow-400 cursor-pointer transition">

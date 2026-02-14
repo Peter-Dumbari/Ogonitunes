@@ -27,7 +27,7 @@ export default function Navbar() {
                 Home
               </Link>
             </li>
-            <li className="hover:text-yellow-400 cursor-pointer">Categories</li>
+            <li className="hover:text-yellow-400 cursor-pointer">Genres</li>
             <li className="hover:text-yellow-400 cursor-pointer">About</li>
           </ul>
 
@@ -63,7 +63,7 @@ export default function Navbar() {
               href="/categories"
               className="block w-full py-3 px-4 text-white font-semibold rounded hover:bg-yellow-400 hover:text-black transition"
               onClick={() => setMenuOpen(false)}>
-              Categories
+              Genres
             </Link>
           </li>
 
@@ -74,6 +74,22 @@ export default function Navbar() {
               className="block w-full py-3 px-4 text-white font-semibold rounded hover:bg-yellow-400 hover:text-black transition"
               onClick={() => setMenuOpen(false)}>
               About
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/about"
+              className="block w-full py-3 px-4 text-white font-semibold rounded hover:bg-yellow-400 hover:text-black transition"
+              onClick={() => setMenuOpen(false)}>
+              Privacy Policy
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/about"
+              className="block w-full py-3 px-4 text-white font-semibold rounded hover:bg-yellow-400 hover:text-black transition"
+              onClick={() => setMenuOpen(false)}>
+              Contact
             </Link>
           </li>
         </ul>
