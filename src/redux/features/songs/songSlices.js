@@ -8,6 +8,7 @@ const initialState = {
       artist: "Burna Boy",
       genre: "Afrobeat",
       cover: "/cover1.jpg",
+      slug: "last-last-burna-boy",
       file: "/songs/lastlast.mp3",
       year: 2022,
     },
@@ -17,6 +18,7 @@ const initialState = {
       artist: "Ayra Starr",
       genre: "Afrobeat",
       cover: "/cover2.jpg",
+      slug: "rush-ayra-starr",
       file: "/songs/rush.mp3",
       year: 2023,
     },
@@ -26,6 +28,7 @@ const initialState = {
       artist: "Bera",
       cover: "/cover1.jpg",
       file: "/songs/lastlast.mp3",
+      slug: "last-last-bera",
       genre: "afrobeat",
       size: "4.2MB",
       year: 2022,
@@ -36,6 +39,7 @@ const initialState = {
       artist: "Bera",
       cover: "/cover2.jpg",
       file: "/songs/rush.mp3",
+      slug: "rush-bera",
       genre: "pop",
       size: "3.8MB",
       year: 2023,
@@ -46,6 +50,7 @@ const initialState = {
       artist: "Nanee",
       cover: "/cover3.jpg",
       file: "/songs/praise.mp3",
+      slug: "praise-him-nanee",
       genre: "worship",
       size: "5.0MB",
       year: 2023,
@@ -59,6 +64,13 @@ export const fetchSongs = createAsyncThunk("songs/fetchSongs", async () => {
   // Simulate an API call with a delay
   return true;
 });
+
+export const getSongById = createAsyncThunk(
+  "songs/getSongById",
+  async (songId) => {
+    // Simulate an API call to get song details by ID
+  },
+);
 
 export const uploadMusic = createAsyncThunk(
   "songs/uploadMusic",
