@@ -1,17 +1,44 @@
-"use client"; // Next.js 13 App Router
+"use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { FiMenu, FiX } from "react-icons/fi"; // hamburger / close icons
+import { useState, useEffect, useRef } from "react";
+import { FiMenu, FiX } from "react-icons/fi";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+  const pathname = usePathname();
+
+  // Close menu when navigating
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  // Close menu if clicked outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    }
+
+    if (menuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuOpen]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <nav className="bg-black text-white shadow-md px-5 fixed w-full z-50">
-      <div className="max-w-5xl">
+    <nav className="bg-black text-white shadow-md fixed w-full z-50">
+      <div className="max-w-5xl mx-auto px-5">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
@@ -27,8 +54,20 @@ export default function Navbar() {
                 Home
               </Link>
             </li>
-            <li className="hover:text-yellow-400 cursor-pointer">Genres</li>
-            <li className="hover:text-yellow-400 cursor-pointer">About</li>
+            <li>
+              <Link
+                href="/categories"
+                className="hover:text-yellow-400 transition-colors">
+                Genres
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/about"
+                className="hover:text-yellow-400 transition-colors">
+                About
+              </Link>
+            </li>
           </ul>
 
           {/* Mobile Hamburger */}
@@ -42,57 +81,26 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
+        ref={menuRef}
         className={`md:hidden bg-black overflow-hidden transition-all duration-300 ${
           menuOpen ? "max-h-[500px] py-4" : "max-h-0"
         }`}>
         <ul className="flex flex-col">
-          {/* Home */}
-          <li>
-            <Link
-              href="/"
-              className="block w-full py-3 px-4 text-white font-semibold rounded hover:bg-yellow-400 hover:text-black transition"
-              onClick={() => setMenuOpen(false)} // closes menu on click
-            >
-              Home
-            </Link>
-          </li>
-
-          {/* Categories */}
-          <li>
-            <Link
-              href="/categories"
-              className="block w-full py-3 px-4 text-white font-semibold rounded hover:bg-yellow-400 hover:text-black transition"
-              onClick={() => setMenuOpen(false)}>
-              Genres
-            </Link>
-          </li>
-
-          {/* About */}
-          <li>
-            <Link
-              href="/about"
-              className="block w-full py-3 px-4 text-white font-semibold rounded hover:bg-yellow-400 hover:text-black transition"
-              onClick={() => setMenuOpen(false)}>
-              About
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              href="/contact"
-              className="block w-full py-3 px-4 text-white font-semibold rounded hover:bg-yellow-400 hover:text-black transition"
-              onClick={() => setMenuOpen(false)}>
-              Contact
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/private-policy"
-              className="block w-full py-3 px-4 text-white font-semibold rounded hover:bg-yellow-400 hover:text-black transition"
-              onClick={() => setMenuOpen(false)}>
-              Privacy Policy
-            </Link>
-          </li>
+          {[
+            { name: "Home", href: "/" },
+            { name: "Genres", href: "/categories" },
+            { name: "About", href: "/about" },
+            { name: "Contact", href: "/contact" },
+            { name: "Privacy Policy", href: "/private-policy" },
+          ].map((link) => (
+            <li key={link.name}>
+              <Link
+                href={link.href}
+                className="block w-full py-3 px-4 text-white font-semibold rounded hover:bg-yellow-400 hover:text-black transition">
+                {link.name}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>
