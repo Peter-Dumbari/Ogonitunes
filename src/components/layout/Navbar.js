@@ -45,7 +45,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center">
             <Image
               src="/logo.png"
-              width={150}
+              width={180}
               height={10}
               className="h-10"
               alt="Ogonitunes"
@@ -55,13 +55,6 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <ul className="hidden md:flex space-x-8">
-            <li>
-              <Link
-                href="/"
-                className="hover:text-yellow-400 transition-colors">
-                Home
-              </Link>
-            </li>
             <li>
               <Link
                 href="/categories"
@@ -95,7 +88,6 @@ export default function Navbar() {
         }`}>
         <ul className="flex flex-col">
           {[
-            { name: "Home", href: "/" },
             { name: "Genres", href: "/categories" },
             { name: "About", href: "/about" },
             { name: "Contact", href: "/contact" },
