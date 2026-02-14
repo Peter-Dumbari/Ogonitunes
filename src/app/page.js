@@ -131,7 +131,7 @@ export default function Home() {
         </div>
 
         {/* ===== Search ===== */}
-        <div className="relative">
+        <div className="relative text-black">
           <input
             type="text"
             placeholder="Search music..."

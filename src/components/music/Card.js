@@ -2,15 +2,19 @@
 
 import { FaPlay, FaDownload } from "react-icons/fa"; // Play & download icons
 import Link from "next/link";
+import Image from "next/image";
 
 export const SongCard = ({ song }) => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col md:flex-row md:items-center">
       {/* Cover Image */}
       <Link href={`/song/${song.id}`}>
-        <img
+        <Image
           src={song.cover}
           alt={song.title}
+          width={50}
+          height={50}
+          loading="lazy"
           className="w-full h-48 object-cover md:w-48 md:h-48 cursor-pointer hover:scale-105 transition-transform"
         />
       </Link>
@@ -55,8 +59,11 @@ export const FlatSongRow = ({ song }) => {
       <div className="flex items-center gap-3">
         {/* small cover */}
         <Link href={`/song/${song.id}`}>
-          <img
+          <Image
             src={song.cover}
+            height={10}
+            width={10}
+            loading="lazy"
             alt={song.title}
             className="w-10 h-10 object-cover border rounded"
           />
