@@ -21,7 +21,7 @@ export default function Footer() {
             <Image
               src="/logo.png"
               className="h-10"
-              width={150}
+              width={180}
               height={10}
               alt="Ogonitunes"
               priority={true}

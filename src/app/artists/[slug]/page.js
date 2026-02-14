@@ -1,6 +1,7 @@
 "use client";
 
 import { SongCard } from "@/components/music/Card";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useSelector } from "react-redux";
 
@@ -34,8 +35,11 @@ export default function ArtistDetailPage() {
       {/* Artist info */}
       <div className="flex flex-col items-center text-center">
         <div className="w-32 h-32 rounded-full overflow-hidden border mb-4">
-          <img
+          <Image
             src={artist.image}
+            width={100}
+            height={100}
+            loading="lazy"
             alt={artist.name}
             className="w-full h-full object-cover"
           />
