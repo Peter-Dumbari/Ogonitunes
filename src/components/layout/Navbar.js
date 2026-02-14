@@ -76,20 +76,21 @@ export default function Navbar() {
               About
             </Link>
           </li>
+
           <li>
             <Link
-              href="/about"
+              href="/contact"
               className="block w-full py-3 px-4 text-white font-semibold rounded hover:bg-yellow-400 hover:text-black transition"
               onClick={() => setMenuOpen(false)}>
-              Privacy Policy
+              Contact
             </Link>
           </li>
           <li>
             <Link
-              href="/about"
+              href="/private-policy"
               className="block w-full py-3 px-4 text-white font-semibold rounded hover:bg-yellow-400 hover:text-black transition"
               onClick={() => setMenuOpen(false)}>
-              Contact
+              Privacy Policy
             </Link>
           </li>
         </ul>
