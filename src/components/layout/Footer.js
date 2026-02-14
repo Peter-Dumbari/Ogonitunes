@@ -50,6 +50,20 @@ export default function Footer() {
                 About
               </Link>
             </li>
+            <li>
+              <Link
+                href="/contact"
+                className="hover:text-yellow-400 transition-colors duration-200">
+                contact
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/private-policy"
+                className="hover:text-yellow-400 transition-colors duration-200">
+                Privacy Policy
+              </Link>
+            </li>
           </ul>
         </div>
 
