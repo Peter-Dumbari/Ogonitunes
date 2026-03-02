@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 
 export default function SongDetailPage() {
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
   const params = useParams(); // get song id from URL
   const { slug } = params; // extract slug from params
   const { song, loading_song, related_songs } = useSelector(
@@ -48,8 +49,8 @@ export default function SongDetailPage() {
             </h1>
             <p className="text-gray-600 mb-2">{song?.artist?.name}</p>
             <p className="text-gray-500 text-sm">
-              Genre: {song?.genre?.title || "Unknown"} | Size:{" "}
-              {song?.size || "4MB"} | Year: {song?.year_release || "2026"}
+              Genre: {song?.genre?.title || "Unknown"} | Year:{" "}
+              {song?.year_release || "2026"}
             </p>
           </div>
 
@@ -64,7 +65,7 @@ export default function SongDetailPage() {
           {/* Download Button */}
           <div className="mb-6">
             <a
-              href={song?.audio?.url}
+              href={`${BASE_URL}/song/${song?._id}/download`}
               download
               className="flex items-center justify-center space-x-2 bg-yellow-400 text-black px-6 py-3 rounded hover:bg-yellow-500 transition w-full sm:w-auto">
               <FaDownload />

@@ -5,7 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const SongCard = ({ song }) => {
-  console.log("song", song);
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col md:flex-row md:items-center">
       {/* Cover Image */}
@@ -40,7 +41,7 @@ export const SongCard = ({ song }) => {
 
           {/* Download Button */}
           <a
-            href={song.file}
+            href={`${BASE_URL}/song/${song?._id}/download`}
             download
             className="flex items-center space-x-2 px-3 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition">
             <FaDownload />
@@ -53,6 +54,8 @@ export const SongCard = ({ song }) => {
 };
 
 export const FlatSongRow = ({ song }) => {
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
   return (
     <div className="border-b border-gray-200 py-2">
       <div className="flex items-center gap-3">
@@ -71,17 +74,15 @@ export const FlatSongRow = ({ song }) => {
         {/* title & artist */}
         <div className="flex-1 min-w-0">
           <Link href={`/song/${song.slug}`}>
-            <p className="text-sm text-gray-900 truncate">{song.title}</p>
+            <p className="text-sm text-black-900 truncate">{song.title}</p>
           </Link>
 
-          <p className="text-[11px] text-gray-500 truncate">
-            {song.artist.name}
-          </p>
+          <p className="text-[11px] text-black truncate">{song.artist.name}</p>
         </div>
 
         {/* download */}
         <a
-          href={song.audio.url}
+          href={`${BASE_URL}/song/${song?._id}/download`}
           download
           className="text-xs text-yellow-700 font-medium whitespace-nowrap">
           Download

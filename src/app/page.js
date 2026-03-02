@@ -175,7 +175,7 @@ export default function Home() {
                   href={`/song/${song?.slug}`}
                   className="flex items-center gap-2 px-2 py-2 border-b last:border-b-0 text-sm">
                   <img
-                    src={song?.cover}
+                    src={song?.image?.url}
                     alt={song?.title}
                     className="w-8 h-8 object-cover border"
                   />
@@ -183,7 +183,7 @@ export default function Home() {
                   <div className="min-w-0">
                     <p className="truncate text-gray-900">{song?.title}</p>
                     <p className="text-[11px] text-gray-500 truncate">
-                      {song?.artist}
+                      {song?.artist?.name}
                     </p>
                   </div>
                 </Link>
@@ -216,7 +216,7 @@ export default function Home() {
       </section>
 
       {/* Categories Section */}
-      <section className="max-w-6xl mx-auto px-4 py-6">
+      {/* <section className="max-w-6xl mx-auto px-4 py-6">
         <h2 className="text-xl font-bold mb-4">Genres</h2>
         <div className="flex flex-wrap gap-4">
           <Link href="/categories/afrobeat">
@@ -246,7 +246,7 @@ export default function Home() {
             </span>
           </Link>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }
