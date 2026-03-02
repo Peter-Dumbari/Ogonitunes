@@ -1,68 +1,24 @@
+import axios from "axios";
+
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 const initialState = {
-  songs: [
-    {
-      id: 1,
-      title: "Last Last",
-      artist: "Burna Boy",
-      genre: "Afrobeat",
-      cover: "/cover1.jpg",
-      slug: "last-last-burna-boy",
-      file: "/songs/lastlast.mp3",
-      year: 2022,
-    },
-    {
-      id: 2,
-      title: "Rush",
-      artist: "Ayra Starr",
-      genre: "Afrobeat",
-      cover: "/cover2.jpg",
-      slug: "rush-ayra-starr",
-      file: "/songs/rush.mp3",
-      year: 2023,
-    },
-    {
-      id: 4,
-      title: "Last Last",
-      artist: "Bera",
-      cover: "/cover1.jpg",
-      file: "/songs/lastlast.mp3",
-      slug: "last-last-bera",
-      genre: "afrobeat",
-      size: "4.2MB",
-      year: 2022,
-    },
-    {
-      id: 5,
-      title: "Rush",
-      artist: "Bera",
-      cover: "/cover2.jpg",
-      file: "/songs/rush.mp3",
-      slug: "rush-bera",
-      genre: "pop",
-      size: "3.8MB",
-      year: 2023,
-    },
-    {
-      id: 6,
-      title: "Praise Him",
-      artist: "Nanee",
-      cover: "/cover3.jpg",
-      file: "/songs/praise.mp3",
-      slug: "praise-him-nanee",
-      genre: "worship",
-      size: "5.0MB",
-      year: 2023,
-    },
-  ],
-  loading: false,
+  songs: [],
+  song: [],
+  loading_song: false,
   error: null,
 };
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
 export const fetchSongs = createAsyncThunk("songs/fetchSongs", async () => {
   // Simulate an API call with a delay
-  return true;
+  try {
+    const response = await axios.get(`${BASE_URL}/song`);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
 });
 
 export const getSongById = createAsyncThunk(
@@ -93,40 +49,40 @@ const songSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchSongs.pending, (state) => {
-        state.loading = true;
+        state.loading_song = true;
         state.error = null;
       })
       .addCase(fetchSongs.fulfilled, (state, action) => {
-        state.loading = false;
-        state.songs = action.payload;
+        state.loading_song = false;
+        state.songs = action.payload.songs;
       })
       .addCase(fetchSongs.rejected, (state, action) => {
-        state.loading = false;
+        state.loading_song = false;
         state.error = action.error.message;
       });
     builder
       .addCase(uploadMusic.pending, (state) => {
-        state.loading = true;
+        state.loading_song = true;
         state.error = null;
       })
       .addCase(uploadMusic.fulfilled, (state, action) => {
-        state.loading = false;
+        state.loading_song = false;
         state.songs.push(action.payload);
       })
       .addCase(uploadMusic.rejected, (state, action) => {
-        state.loading = false;
+        state.loading_song = false;
         state.error = action.error.message;
       });
     builder
       .addCase(downloadMusic.pending, (state) => {
-        state.loading = true;
+        state.loading_song = true;
         state.error = null;
       })
       .addCase(downloadMusic.fulfilled, (state) => {
-        state.loading = false;
+        state.loading_song = false;
       })
       .addCase(downloadMusic.rejected, (state, action) => {
-        state.loading = false;
+        state.loading_song = false;
         state.error = action.error.message;
       });
   },
