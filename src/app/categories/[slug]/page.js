@@ -10,7 +10,7 @@ export default function CategoryDetailPage() {
   const slug = params.slug; // get the category slug from URL
   // Filter songs by category
   const categorySongs = songs.filter(
-    (song) => song.genre?.toLowerCase() === slug,
+    (song) => song.genre.title?.toLowerCase() === slug,
   );
 
   return (

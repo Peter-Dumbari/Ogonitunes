@@ -3,25 +3,35 @@
 "use client";
 
 import { FlatSongRow, SongCard } from "@/components/music/Card";
+import { fetchArtists } from "@/redux/features/artists/artistSlices";
+import { fetchCategories } from "@/redux/features/categories/categorySlices";
+import { fetchSongs } from "@/redux/features/songs/songSlices";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
   const [query, setQuery] = useState("");
-  const { songs } = useSelector((state) => state.songs);
-  const { categories } = useSelector((state) => state.categories);
-  const { artists } = useSelector((state) => state.artists);
+  const { songs, loading_song } = useSelector((state) => state.songs);
+  const { genres, loading_genre } = useSelector((state) => state.categories);
+  const { artists, loading } = useSelector((state) => state.artists);
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchArtists());
+    dispatch(fetchSongs());
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
   const filteredSongs =
     query.trim() === ""
       ? []
       : songs.filter((song) =>
-          `${song.title} ${song.artist}`
+          `${song.title} ${song?.artist?.name}`
             .toLowerCase()
             .includes(query.toLowerCase()),
         );
@@ -82,27 +92,29 @@ export default function Home() {
           </div>
 
           <div className="flex gap-3 overflow-x-auto pb-1">
-            {artists.map((artist) => (
-              <Link
-                key={artist.id}
-                href={`/artists/${artist.name.toLowerCase().replace(/\s+/g, "-")}`}
-                className="flex-shrink-0 text-center">
-                <div className="w-12 h-12 rounded-full overflow-hidden border border-gray-300">
-                  <Image
-                    src={artist.image}
-                    alt={artist.name}
-                    width={100}
-                    height={100}
-                    loading="lazy"
-                    className="w-full h-full object-cover"
+            {loading ? (
+              <div className="flex items-center gap-2">
+                <div className="w-12 h-12 rounded-full bg-gray-300 animate-pulse" />
+                <div className="w-12 h-12 rounded-full bg-gray-300 animate-pulse" />
+                <div className="w-12 h-12 rounded-full bg-gray-300 animate-pulse" />
+                <div className="w-12 h-12 rounded-full bg-gray-300 animate-pulse" />
+                <div className="w-12 h-12 rounded-full bg-gray-300 animate-pulse" />
+              </div>
+            ) : (
+              artists?.slice(0, 6).map((artist) => (
+                <Link
+                  key={artist?._id}
+                  href={`/artists/${artist?._id}`}
+                  className="flex flex-col items-center gap-1 min-w-max">
+                  <img
+                    src={artist?.image.url}
+                    alt={artist?.name}
+                    className="w-12 h-12 rounded-full object-cover border"
                   />
-                </div>
-
-                <p className="text-[11px] mt-1 text-gray-800 w-12 truncate">
-                  {artist.name}
-                </p>
-              </Link>
-            ))}
+                  <span className="text-xs text-gray-900">{artist?.name}</span>
+                </Link>
+              ))
+            )}
           </div>
         </div>
 
@@ -111,27 +123,37 @@ export default function Home() {
           <h3 className="text-sm font-medium text-gray-900">Genres</h3>
 
           <div className="flex flex-wrap gap-2">
-            {categories.map((type) => (
-              <button
-                key={type}
-                onClick={() =>
-                  router.push(
-                    `/categories/${type.toLowerCase().replace(/\s+/g, "-")}`,
-                  )
-                }
-                className="
+            {loading_genre ? (
+              <div className="flex items-center gap-2">
+                <div className="w-16 h-6 rounded-full bg-gray-300 animate-pulse" />
+                <div className="w-16 h-6 rounded-full bg-gray-300 animate-pulse" />
+                <div className="w-16 h-6 rounded-full bg-gray-300 animate-pulse" />
+                <div className="w-16 h-6 rounded-full bg-gray-300 animate-pulse" />
+                <div className="w-16 h-6 rounded-full bg-gray-300 animate-pulse" />
+              </div>
+            ) : (
+              genres?.map((genre) => (
+                <button
+                  key={genre?._id}
+                  onClick={() =>
+                    router.push(
+                      `/categories/${genre?.title.toLowerCase().replace(/\s+/g, "-")}`,
+                    )
+                  }
+                  className="
             px-3 py-1 border border-gray-300
             text-xs text-gray-800
             bg-white
           ">
-                {type}
-              </button>
-            ))}
+                  {genre?.title}
+                </button>
+              ))
+            )}
           </div>
         </div>
 
         {/* ===== Search ===== */}
-        <div className="relative">
+        <div className="relative text-black">
           <input
             type="text"
             placeholder="Search music..."
@@ -149,19 +171,19 @@ export default function Home() {
             <div className="absolute left-0 right-0 mt-1 border border-gray-300 bg-white z-40">
               {filteredSongs.slice(0, 6).map((song) => (
                 <Link
-                  key={song.id}
-                  href={`/song/${song.slug}`}
+                  key={song?._id}
+                  href={`/song/${song?.slug}`}
                   className="flex items-center gap-2 px-2 py-2 border-b last:border-b-0 text-sm">
                   <img
-                    src={song.cover}
-                    alt={song.title}
+                    src={song?.image?.url}
+                    alt={song?.title}
                     className="w-8 h-8 object-cover border"
                   />
 
                   <div className="min-w-0">
-                    <p className="truncate text-gray-900">{song.title}</p>
+                    <p className="truncate text-gray-900">{song?.title}</p>
                     <p className="text-[11px] text-gray-500 truncate">
-                      {song.artist}
+                      {song?.artist?.name}
                     </p>
                   </div>
                 </Link>
@@ -182,14 +204,19 @@ export default function Home() {
       <section className="max-w-6xl mx-auto px-4 py-6">
         <h2 className="text-xl font-bold mb-4">Latest Songs</h2>
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {songs.map((song) => (
-            <FlatSongRow key={song.id} song={song} />
-          ))}
+          {loading_song ? (
+            <div className="col-span-full flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-gray-300 animate-pulse" />
+              <div className="w-32 h-4 bg-gray-300 animate-pulse" />
+            </div>
+          ) : (
+            songs?.map((song, idx) => <FlatSongRow key={idx} song={song} />)
+          )}
         </div>
       </section>
 
       {/* Categories Section */}
-      <section className="max-w-6xl mx-auto px-4 py-6">
+      {/* <section className="max-w-6xl mx-auto px-4 py-6">
         <h2 className="text-xl font-bold mb-4">Genres</h2>
         <div className="flex flex-wrap gap-4">
           <Link href="/categories/afrobeat">
@@ -219,7 +246,7 @@ export default function Home() {
             </span>
           </Link>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }

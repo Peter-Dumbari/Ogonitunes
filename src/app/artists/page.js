@@ -19,7 +19,7 @@ export default function ArtistsPage() {
             className="flex flex-col items-center text-center hover:scale-105 transition-transform">
             <div className="w-24 h-24 rounded-full overflow-hidden border">
               <img
-                src={artist.image}
+                src={artist.image.url}
                 alt={artist.name}
                 className="w-full h-full object-cover"
               />
