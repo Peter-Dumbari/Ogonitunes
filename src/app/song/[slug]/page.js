@@ -86,7 +86,7 @@ export default function SongDetailPage() {
                 {related_songs.map((item) => (
                   <Link
                     key={item._id}
-                    href={`/song/${item._id}`}
+                    href={`/song/${item.slug}`}
                     className="flex items-center gap-3 px-3 py-3 hover:bg-gray-50 transition">
                     {/* cover */}
                     <img
