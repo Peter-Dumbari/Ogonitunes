@@ -5,6 +5,7 @@ const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 const initialState = {
   songs: [],
   song: [],
+  related_songs: [],
   loading_song: false,
   error: null,
 };
@@ -21,10 +22,19 @@ export const fetchSongs = createAsyncThunk("songs/fetchSongs", async () => {
   }
 });
 
-export const getSongById = createAsyncThunk(
-  "songs/getSongById",
-  async (songId) => {
+export const getSongBySlug = createAsyncThunk(
+  "songs/getSongBySlug",
+  async (songSlug) => {
+    console.log("songSlug", songSlug);
     // Simulate an API call to get song details by ID
+    try {
+      const response = await axios.get(`${BASE_URL}/song/${songSlug}`);
+      console.log("response", response);
+      return response.data;
+    } catch (error) {
+      console.log("error", error);
+      return error.response.data;
+    }
   },
 );
 
@@ -72,6 +82,21 @@ const songSlice = createSlice({
       .addCase(uploadMusic.rejected, (state, action) => {
         state.loading_song = false;
         state.error = action.error.message;
+      });
+    builder
+      .addCase(getSongBySlug.pending, (state) => {
+        state.loading_song = true;
+        state.error = null;
+      })
+      .addCase(getSongBySlug.fulfilled, (state, action) => {
+        state.loading_song = false;
+        state.song = action.payload.song;
+        state.related_songs = action.payload.relatedSongs;
+      })
+      .addCase(getSongBySlug.rejected, (state, action) => {
+        state.loading_song = false;
+        state.error = action.error.message;
+        state.song = null; // Clear song details on error
       });
     builder
       .addCase(downloadMusic.pending, (state) => {

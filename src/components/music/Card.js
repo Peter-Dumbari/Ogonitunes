@@ -53,7 +53,6 @@ export const SongCard = ({ song }) => {
 };
 
 export const FlatSongRow = ({ song }) => {
-  console.log("song", song);
   return (
     <div className="border-b border-gray-200 py-2">
       <div className="flex items-center gap-3">
