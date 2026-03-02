@@ -15,8 +15,7 @@ export default function SongDetailPage() {
   const { song, loading_song, related_songs } = useSelector(
     (state) => state.songs,
   );
-  console.log("song", song);
-  console.log("slug", slug);
+
   const dispatch = useDispatch();
   // Find the song from mock data
 

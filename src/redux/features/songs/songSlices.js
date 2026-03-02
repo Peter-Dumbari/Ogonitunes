@@ -25,11 +25,9 @@ export const fetchSongs = createAsyncThunk("songs/fetchSongs", async () => {
 export const getSongBySlug = createAsyncThunk(
   "songs/getSongBySlug",
   async (songSlug) => {
-    console.log("songSlug", songSlug);
     // Simulate an API call to get song details by ID
     try {
       const response = await axios.get(`${BASE_URL}/song/${songSlug}`);
-      console.log("response", response);
       return response.data;
     } catch (error) {
       console.log("error", error);

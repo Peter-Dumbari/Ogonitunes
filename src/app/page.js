@@ -4,6 +4,7 @@
 
 import { FlatSongRow, SongCard } from "@/components/music/Card";
 import { fetchArtists } from "@/redux/features/artists/artistSlices";
+import { fetchCategories } from "@/redux/features/categories/categorySlices";
 import { fetchSongs } from "@/redux/features/songs/songSlices";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function Home() {
   const [query, setQuery] = useState("");
   const { songs, loading_song } = useSelector((state) => state.songs);
-  const { categories } = useSelector((state) => state.categories);
+  const { genres, loading_genre } = useSelector((state) => state.categories);
   const { artists, loading } = useSelector((state) => state.artists);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -23,13 +24,14 @@ export default function Home() {
   useEffect(() => {
     dispatch(fetchArtists());
     dispatch(fetchSongs());
+    dispatch(fetchCategories());
   }, [dispatch]);
 
   const filteredSongs =
     query.trim() === ""
       ? []
       : songs.filter((song) =>
-          `${song.title} ${song.artist}`
+          `${song.title} ${song?.artist?.name}`
             .toLowerCase()
             .includes(query.toLowerCase()),
         );
@@ -121,22 +123,32 @@ export default function Home() {
           <h3 className="text-sm font-medium text-gray-900">Genres</h3>
 
           <div className="flex flex-wrap gap-2">
-            {categories.map((type) => (
-              <button
-                key={type}
-                onClick={() =>
-                  router.push(
-                    `/categories/${type.toLowerCase().replace(/\s+/g, "-")}`,
-                  )
-                }
-                className="
+            {loading_genre ? (
+              <div className="flex items-center gap-2">
+                <div className="w-16 h-6 rounded-full bg-gray-300 animate-pulse" />
+                <div className="w-16 h-6 rounded-full bg-gray-300 animate-pulse" />
+                <div className="w-16 h-6 rounded-full bg-gray-300 animate-pulse" />
+                <div className="w-16 h-6 rounded-full bg-gray-300 animate-pulse" />
+                <div className="w-16 h-6 rounded-full bg-gray-300 animate-pulse" />
+              </div>
+            ) : (
+              genres?.map((genre) => (
+                <button
+                  key={genre?._id}
+                  onClick={() =>
+                    router.push(
+                      `/categories/${genre?.title.toLowerCase().replace(/\s+/g, "-")}`,
+                    )
+                  }
+                  className="
             px-3 py-1 border border-gray-300
             text-xs text-gray-800
             bg-white
           ">
-                {type}
-              </button>
-            ))}
+                  {genre?.title}
+                </button>
+              ))
+            )}
           </div>
         </div>
 
