@@ -42,7 +42,7 @@ export const SongCard = ({ song }) => {
           {/* Download Button */}
           <a
             href={`${BASE_URL}/song/${song?._id}/download`}
-            download
+            download={`${song?.title} - ${song?.artist?.name} | ogonitunes.com`}
             className="flex items-center space-x-2 px-3 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition">
             <FaDownload />
             <span>Download</span>
@@ -83,7 +83,7 @@ export const FlatSongRow = ({ song }) => {
         {/* download */}
         <a
           href={`${BASE_URL}/song/${song?._id}/download`}
-          download
+          download={`${song?.title} - ${song?.artist?.name} | ogonitunes.com`}
           className="text-xs text-yellow-700 font-medium whitespace-nowrap">
           Download
         </a>
