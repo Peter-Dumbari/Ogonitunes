@@ -50,6 +50,7 @@ export default function ArtistDetailPage() {
           </div>
 
           <div>
+            <h3 className="font-bold">{artist?.artist?.full_name}</h3>
             <p className="text-gray-700">{artist?.artist?.description}</p>
           </div>
         </>

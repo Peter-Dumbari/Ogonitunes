@@ -26,7 +26,7 @@ export const SongCard = ({ song }) => {
         {/* Title & Artist */}
         <Link href={`/song/${song.slug}`}>
           <div className="cursor-pointer hover:text-yellow-400 transition-colors">
-            <h3 className="text-lg font-semibold">{song.title}</h3>
+            <h3 className="text-lg text-black font-semibold">{song.title}</h3>
           </div>
         </Link>
 
