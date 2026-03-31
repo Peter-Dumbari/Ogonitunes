@@ -2,6 +2,7 @@
 // import Footer from "../components/Footer";
 "use client";
 
+import { Paginations } from "@/components/common/Paginations";
 import { FlatSongRow, SongCard } from "@/components/music/Card";
 import { fetchArtists } from "@/redux/features/artists/artistSlices";
 import { fetchCategories } from "@/redux/features/categories/categorySlices";
@@ -20,6 +21,12 @@ export default function Home() {
   const { artists, loading } = useSelector((state) => state.artists);
   const router = useRouter();
   const dispatch = useDispatch();
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 5;
+  const totalPages = Math.ceil(songs.length / itemsPerPage); // 8 items per page
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedSongs = songs.slice(startIndex, endIndex);
 
   useEffect(() => {
     dispatch(fetchArtists());
@@ -210,8 +217,20 @@ export default function Home() {
               <div className="w-32 h-4 bg-gray-300 animate-pulse" />
             </div>
           ) : (
-            songs?.map((song, idx) => <FlatSongRow key={idx} song={song} />)
+            paginatedSongs?.map((song, idx) => (
+              <FlatSongRow key={idx} song={song} />
+            ))
           )}
+
+          <div className="flex justify-center w-full ">
+            {songs?.length > 0 && (
+              <Paginations
+                totalPages={totalPages}
+                currentPage={page}
+                onPageChange={setPage}
+              />
+            )}
+          </div>
         </div>
       </section>
 
