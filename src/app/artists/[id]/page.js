@@ -59,7 +59,7 @@ export default function ArtistDetailPage() {
       {/* Songs by artist */}
       <div>
         <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-          Songs by {artist?.artist.name}
+          Songs by {artist?.artist?.name}
         </h2>
 
         {artist?.songs?.length === 0 ? (
