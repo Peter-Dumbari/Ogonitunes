@@ -15,8 +15,10 @@ export function Paginations({
 
     const newPage = page + 1;
 
-    if (currentPage === undefined) setActive(newPage);
-    if (onPageChange) onPageChange(newPage);
+    if (newPage !== page) {
+      if (currentPage === undefined) setActive(newPage);
+      if (onPageChange) onPageChange(newPage);
+    }
   };
 
   const prev = () => {
@@ -24,8 +26,10 @@ export function Paginations({
 
     const newPage = page - 1;
 
-    if (currentPage === undefined) setActive(newPage);
-    if (onPageChange) onPageChange(newPage);
+    if (newPage !== page) {
+      if (currentPage === undefined) setActive(newPage);
+      if (onPageChange) onPageChange(newPage);
+    }
   };
 
   return (

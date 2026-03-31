@@ -23,7 +23,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const itemsPerPage = 5;
-  const totalPages = Math.ceil(songs.length / itemsPerPage); // 8 items per page
+  const totalPages = Math.ceil((songs?.length || 0) / itemsPerPage); // 8 items per page
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedSongs = songs.slice(startIndex, endIndex);
