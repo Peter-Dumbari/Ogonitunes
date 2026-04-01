@@ -22,11 +22,14 @@ export default function Home() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
-  const itemsPerPage = 5;
-  const totalPages = Math.ceil((songs?.length || 0) / itemsPerPage); // 8 items per page
+  const itemsPerPage = 8;
+  const totalPages = Math.max(
+    1,
+    Math.ceil((songs?.length || 0) / itemsPerPage),
+  );
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedSongs = songs.slice(startIndex, endIndex);
+  const paginatedSongs = (songs || []).slice(startIndex, endIndex);
 
   useEffect(() => {
     dispatch(fetchArtists());
@@ -223,11 +226,13 @@ export default function Home() {
           )}
 
           <div className="flex justify-center w-full ">
-            <Paginations
-              totalPages={totalPages}
-              currentPage={page}
-              onPageChange={setPage}
-            />
+            {songs?.length > itemsPerPage && (
+              <Paginations
+                totalPages={totalPages}
+                currentPage={page}
+                onPageChange={setPage}
+              />
+            )}
           </div>
         </div>
       </section>
