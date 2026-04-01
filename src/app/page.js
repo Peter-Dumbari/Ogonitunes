@@ -223,11 +223,11 @@ export default function Home() {
           )}
 
           <div className="flex justify-center w-full ">
-            {/* <Paginations
+            <Paginations
               totalPages={totalPages}
               currentPage={page}
               onPageChange={setPage}
-            /> */}
+            />
           </div>
         </div>
       </section>
