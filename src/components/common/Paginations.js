@@ -1,18 +1,24 @@
+"use client";
+
 import React from "react";
 import { IconButton, Typography } from "@material-tailwind/react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-export function Paginations({ totalPages = 10, currentPage, onPageChange }) {
-  const page = currentPage;
+export function Paginations({
+  totalPages = 10,
+  currentPage = 1,
+  onPageChange,
+}) {
+  //   const page = currentPage;
 
   const next = () => {
-    if (page >= totalPages) return;
-    onPageChange?.(page + 1);
+    if (currentPage >= totalPages) return;
+    onPageChange?.(currentPage + 1);
   };
 
   const prev = () => {
-    if (page <= 1) return;
-    onPageChange?.(page - 1);
+    if (currentPage <= 1) return;
+    onPageChange?.(currentPage - 1);
   };
 
   return (
@@ -21,12 +27,12 @@ export function Paginations({ totalPages = 10, currentPage, onPageChange }) {
         size="sm"
         className="h-7 w-7 flex items-center justify-center rounded"
         onClick={prev}
-        disabled={page <= 1}>
+        disabled={currentPage <= 1}>
         <FaArrowLeft size={20} />
       </IconButton>
 
       <Typography color="gray" className="font-normal">
-        Page <strong className="text-gray-900">{page}</strong> of{" "}
+        Page <strong className="text-gray-900">{currentPage}</strong> of{" "}
         <strong className="text-gray-900">{totalPages}</strong>
       </Typography>
 
@@ -34,7 +40,7 @@ export function Paginations({ totalPages = 10, currentPage, onPageChange }) {
         size="sm"
         className="h-7 w-7 flex items-center justify-center rounded"
         onClick={next}
-        disabled={page >= totalPages}>
+        disabled={currentPage >= totalPages}>
         <FaArrowRight size={20} />
       </IconButton>
     </div>
